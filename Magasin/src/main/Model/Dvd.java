@@ -1,4 +1,4 @@
-package Model;
+package main.Model;
 
 /**
  * DvD : type d'article du magasin

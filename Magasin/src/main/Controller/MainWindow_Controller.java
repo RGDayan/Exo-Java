@@ -1,6 +1,6 @@
-package Controller;
+package main.Controller;
 
-import View.MainWindow;
+import main.View.MainWindow;
 
 public class MainWindow_Controller {
     /** Instance de MainWindow ouverte */

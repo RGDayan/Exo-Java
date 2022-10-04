@@ -1,4 +1,4 @@
-package Model;
+package main.Model;
 
 /**
  * Livre : type d'article du magasin

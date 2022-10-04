@@ -1,4 +1,4 @@
-package Model;
+package main.Model;
 
 /**
  * Personne ayant produit un article

@@ -1,17 +1,13 @@
-package View;
+package main.View;
 
-import Components.Livre_TableModel;
-import Model.Auteur;
-import Model.Dvd;
-import Model.Livre;
-import Model.Realisateur;
+import main.Components.Livre_TableModel;
+import main.Model.Auteur;
+import main.Model.Dvd;
+import main.Model.Livre;
+import main.Model.Realisateur;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.util.ResourceBundle;
 
 public class Livre_Vue extends JPanel {
 

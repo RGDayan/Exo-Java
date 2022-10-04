@@ -1,11 +1,8 @@
-package Components;
+package main.Components;
 
-import Model.Auteur;
-import Model.Livre;
+import main.Model.Livre;
 
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import java.util.List;
 
 public class Livre_TableModel extends AbstractTableModel {
@@ -19,7 +16,7 @@ public class Livre_TableModel extends AbstractTableModel {
             "Auteur"
     };
 
-    private List<Livre> data;
+    private final List<Livre> data;
 
     public Livre_TableModel(List<Livre> data) {
         this.data = data;
@@ -46,25 +43,13 @@ public class Livre_TableModel extends AbstractTableModel {
         Object value = "??";
         Livre livre = data.get(rowIndex);
 
-        switch (columnIndex){
-            case 0:
-                value = livre.getReference();
-                break;
-            case 1:
-                value = livre.getDesignation();
-                break;
-            case 2:
-                value = livre.getPrix();
-                break;
-            case 3:
-                value = livre.getIsbn();
-                break;
-            case 4:
-                value = livre.getNbPage();
-                break;
-            case 5:
-                value = livre.getAuteur().getNom_plume();
-                break;
+        switch (columnIndex) {
+            case 0 -> value = livre.getReference();
+            case 1 -> value = livre.getDesignation();
+            case 2 -> value = livre.getPrix();
+            case 3 -> value = livre.getIsbn();
+            case 4 -> value = livre.getNbPage();
+            case 5 -> value = livre.getAuteur().getNom_plume();
         }
 
         return value;
@@ -72,19 +57,11 @@ public class Livre_TableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        Class value;
-        switch (columnIndex){
-            case 0: case 1: case 3: case 5:
-                value = String.class;
-                break;
-            case 2: case 4:
-                value = Integer.class;
-                break;
-            default:
-                value = null;
-        }
-
-        return value;
+        return switch (columnIndex) {
+            case 0, 1, 3, 5 -> String.class;
+            case 2, 4 -> Integer.class;
+            default -> null;
+        };
     }
 
     public Livre getLivreAt(int row){
