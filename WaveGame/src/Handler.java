@@ -5,6 +5,7 @@ public class Handler {
     LinkedList<GameObject> objects = new LinkedList<>();
 
     public void tick(){
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < objects.size(); i++) {
             GameObject tempObject = objects.get(i);
             tempObject.tick();

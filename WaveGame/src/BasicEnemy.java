@@ -1,9 +1,8 @@
 import java.awt.*;
 
 public class BasicEnemy extends GameObject {
-
-    private Handler handler;
-    public BasicEnemy(int x, int y, ID id, Handler h) {
+     private final Handler handler;
+    public BasicEnemy(float x, float y, ID id, Handler h) {
         super(x, y, id);
         this.handler = h;
         velX = 3;
@@ -18,17 +17,17 @@ public class BasicEnemy extends GameObject {
         if (y <= 0 || y >= WaveGame.HEIGHT - 56) velY *= -1;
         if (x <= 0 || x >= WaveGame.WIDTH - 32) velX *= -1;
 
-        handler.addObject(new Trail(x, y, ID.Trail, Color.RED, 16, 16, 0.02f, handler ));
+        handler.addObject(new Trail((int)x, (int)y, ID.Trail, Color.RED, 16, 16, 0.02f, handler ));
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fillRect(x, y, 16, 16);
+        g.fillRect((int)x, (int)y, 16, 16);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 16, 16);
+        return new Rectangle((int)x, (int)y, 16, 16);
     }
 }

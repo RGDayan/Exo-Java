@@ -9,9 +9,8 @@ public class WaveGame extends Canvas implements Runnable{
 
     public static final int WIDTH = 640;
     public static final int HEIGHT = WIDTH / 12*9;
-    private final Random r;
-    private final HUD hud;
-    private final Spawner spawner;
+    private HUD hud;
+    private Spawner spawner;
     private Thread thread;
     private boolean running = false;
     private final Handler handler;
@@ -21,17 +20,18 @@ public class WaveGame extends Canvas implements Runnable{
      */
     public WaveGame(){
         handler = new Handler();
+        hud = new HUD();
+        spawner = new Spawner(handler, hud);
+
         this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "Wave Game", this);
         this.requestFocus();
 
-        hud = new HUD();
-        spawner = new Spawner(handler, hud);
 
-        r = new Random();
-        handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 -32, ID.Player, handler));
+        Random r = new Random();
+        handler.addObject(new Player(WIDTH/2f - 32, HEIGHT/2f -32, ID.Player, handler));
         handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
-        handler.addObject(new SmartEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.SmartEnnemy, handler));
+        handler.addObject(new EnemyBoss(WIDTH/2f -42, -50, ID.EnemyBoss, handler));
     }
 
     /**
@@ -77,7 +77,6 @@ public class WaveGame extends Canvas implements Runnable{
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        int frames = 0;
         while(running)
         {
             long now = System.nanoTime();
@@ -90,13 +89,11 @@ public class WaveGame extends Canvas implements Runnable{
             }
             if(running)
                 render();
-            frames++;
 
             if(System.currentTimeMillis() - timer > 1000)
             {
                 timer += 1000;
 //                System.out.println("FPS: "+ frames);
-                frames = 0;
             }
         }
         stop();
@@ -123,7 +120,7 @@ public class WaveGame extends Canvas implements Runnable{
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.DARK_GRAY);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
@@ -133,7 +130,7 @@ public class WaveGame extends Canvas implements Runnable{
         bs.show();
     }
 
-    public static int clamp(int var, int min, int max){
+    public static float clamp(float var, float min, float max){
         if (var >= max) {
             return var = max;
         }else if (var <= min){

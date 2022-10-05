@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Player extends GameObject{
     private final Handler handler;
-    public Player(int x, int y, ID id, Handler h) {
+    public Player(float x, float y, ID id, Handler h) {
         super(x, y, id);
         this.handler = h;
     }
@@ -19,12 +19,12 @@ public class Player extends GameObject{
 
     public void render(Graphics g){
         g.setColor(Color.BLUE);
-        g.fillRect(x, y, 32, 32);
+        g.fillRect((int)x,(int)y, 32, 32);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 32, 32);
+        return new Rectangle((int)x, (int)y, 32, 32);
     }
 
     public void collision(){
@@ -39,7 +39,7 @@ public class Player extends GameObject{
                     HUD.HEALTH -=1;
                 }
             }
-            if (tempObject.getId() == ID.SmartEnnemy){
+            if (tempObject.getId() == ID.SmartEnemy){
                 if (getBounds().intersects(tempObject.getBounds())){
                     HUD.HEALTH -=3;
                 }

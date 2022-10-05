@@ -7,19 +7,15 @@ public class HUD {
     private int level = 1;
 
     public void tick(){
-        HEALTH = WaveGame.clamp(HEALTH, 0, 100);
-        greenValue = WaveGame.clamp(greenValue, 0 , 255);
+        HEALTH = (int)WaveGame.clamp((float)HEALTH, 0, 100);
+        greenValue = (int)WaveGame.clamp((float)greenValue, 0 , 254);
         greenValue = HEALTH * 2;
         score ++;
     }
 
     public void render(Graphics g){
-//        g.setColor(Color.GRAY);
-//        g.fillRect(15, 15, 200, 32);
         g.setColor(new Color(75, greenValue, 0));
-        g.fillRect(15, 15, HEALTH*2, 32);
-//        g.setColor(Color.WHITE);
-//        g.fillRect(15, 15, 200, 32);
+        g.fillRect(15, 15, (int)HEALTH*2, 32);
 
         g.drawString("Score: " + score, 10, 64);
         g.drawString("Level: " + level, 10, 80);
