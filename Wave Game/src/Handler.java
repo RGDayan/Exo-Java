@@ -24,5 +24,15 @@ public class Handler {
     public void removeObject(GameObject object){
         this.objects.remove(object);
     }
+
+    public void clearEnnemies(){
+        for (int i = 0; i < objects.size(); i++) {
+            var object = objects.get(i);
+            if (object.getId() == ID.Player){
+                objects.clear();
+                addObject(new Player(WaveGame.WIDTH/2, WaveGame.HEIGHT/2, ID.Player, this));
+            }
+        }
+    }
 }
 

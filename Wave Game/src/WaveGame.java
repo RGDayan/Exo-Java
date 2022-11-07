@@ -1,29 +1,39 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
-import java.util.Scanner;
 
 public class WaveGame extends Canvas implements Runnable {
 
     public static final int WIDTH = 640, HEIGHT = WIDTH/12 *9;
+    private final Menu menu;
     private final Handler handler;
     private final HUD hud;
-    private final Random r = new Random();
     private final Spawner spawner;
     private boolean running;
     private Thread thread;
+    public Help help;
+
+    public enum STATE {
+        Menu,
+        Help,
+        Game
+    }
+
+    public STATE gameState = STATE.Menu;
 
     public WaveGame() {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
+
+        menu = new Menu(this, handler);
+        this.addMouseListener(menu);
+
+        help = new Help(handler);
+
         new Window(WIDTH, HEIGHT, "Wave Game",  this);
         this.requestFocus();
 
         hud = new HUD();
         spawner = new Spawner(handler, hud);
-
-        handler.addObject(new Player(100, 100, ID.Player, handler));
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
     }
 
     public static void main(String[] args) {
@@ -39,11 +49,11 @@ public class WaveGame extends Canvas implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        double amoutOfTicks = 60.0;
-        double ns = 1000000000/amoutOfTicks;
+        double amountOfTicks = 60.0;
+        double ns = 1000000000/ amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        int frames = 0;
+//        int frames = 0;
         while (running){
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
@@ -54,20 +64,23 @@ public class WaveGame extends Canvas implements Runnable {
             }
             if (running)
                 render();
-            frames++;
+//            frames++;
 
             if (System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
-                System.out.println("FPS : " + frames);
+//                System.out.println("FPS : " + frames);
             }
         }
         stop();
     }
 
     private void tick(){
+        menu.tick();
         handler.tick();
-        hud.tick();
-        spawner.tick();
+        if (gameState == STATE.Game){
+            hud.tick();
+            spawner.tick();
+        }
     }
 
     private void render(){
@@ -78,10 +91,17 @@ public class WaveGame extends Canvas implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         handler.render(g);
-        hud.render(g);
+
+        if (gameState == STATE.Game)
+            hud.render(g);
+        else if (gameState == STATE.Menu )
+            menu.render(g);
+        else if (gameState == STATE.Help)
+            help.render(g);
+
         g.dispose();
         bs.show();
     }

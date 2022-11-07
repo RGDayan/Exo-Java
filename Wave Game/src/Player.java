@@ -24,11 +24,27 @@ public class Player extends GameObject{
     }
 
     private void collision() {
-        for (GameObject tempObject : handler.objects) {
+
+        int size = handler.objects.size();
+        for (int i = 0; i < size; i++) {
+            var tempObject = handler.objects.get(i);
+
             switch (tempObject.getId()){
                 case BasicEnemy -> {
                     if (getBounds().intersects(tempObject.getBounds()))
                         HUD.HEALTH -= 2;
+                }
+                case FastEnemy -> {
+                    if (getBounds().intersects(tempObject.getBounds()))
+                        HUD.HEALTH -= 1;
+                }
+                case SmartEnemy -> {
+                    if (getBounds().intersects(tempObject.getBounds()))
+                        HUD.HEALTH -= 0.5;
+                }
+                case EnemyBoss -> {
+                    if (getBounds().intersects(tempObject.getBounds()))
+                        HUD.HEALTH = 0;
                 }
             }
         }
