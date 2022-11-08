@@ -1,16 +1,22 @@
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
-public class Help extends MouseAdapter {
-    private final Handler handler;
-    private final Random r = new Random();
-
-    public Help( Handler handler) {
-        this.handler = handler;
+/**
+ * Affichage des instructions du jeu
+ */
+public class Help extends CustomMouseAdapter {
+    /**
+     * Constructeur
+     * @param g WaveGame : Instance de la fenêtre du jeu
+     */
+    public Help(WaveGame g) {
+        super(g);
     }
 
+    /**
+     * Affichage des textes
+     * @param g Graphics : Outil graphique d'écriture
+     */
     public void render(Graphics g){
         Font fnt = new Font("arial", Font.BOLD, 50);
         Font fnt2 = new Font("arial", Font.BOLD, 18);
@@ -30,32 +36,15 @@ public class Help extends MouseAdapter {
         g.drawString("Back", 280,390);
     }
 
-    public void tick(){}
-
-
     @Override
     public void mousePressed(MouseEvent e) {
+        if (WaveGame.gameState != WaveGame.STATE.Help)
+            return;
+
         int mx = e.getX();
         int my = e.getY();
 
-//        if (mouseOver(mx, my, 210 , 150, 200, 64)){
-//            game.gameState = WaveGame.STATE.Game;
-//
-//            handler.addObject(new Player(WaveGame.WIDTH/2-32, WaveGame.HEIGHT/2-32, ID.Player, handler));
-//            handler.addObject(new BasicEnemy(r.nextInt(WaveGame.WIDTH), r.nextInt(WaveGame.HEIGHT), ID.BasicEnemy, handler));
-//        }
-//
-//        if (mouseOver(mx, my, 210, 250, 200, 64))
-//            game.gameState = WaveGame.STATE.Help;
-//
-//        if (mouseOver(mx, my, 210, 350, 200, 64))
-//            System.exit(1);
-    }
-
-    private Boolean mouseOver(int mx, int my, int x, int y, int width, int height){
-        if (mx > x && mx < x + width){
-            return my > y && my < y + height;
-        }else
-            return false;
+        if (mouseOver(mx, my, 210,350,200,64))
+            WaveGame.gameState = WaveGame.STATE.Menu;
     }
 }

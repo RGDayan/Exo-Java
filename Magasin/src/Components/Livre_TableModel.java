@@ -1,11 +1,8 @@
 package Components;
 
-import Model.Auteur;
 import Model.Livre;
 
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import java.util.List;
 
 public class Livre_TableModel extends AbstractTableModel {

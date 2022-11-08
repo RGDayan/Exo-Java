@@ -4,8 +4,10 @@ import java.util.LinkedList;
 public class Handler {
     LinkedList<GameObject> objects = new LinkedList<>();
 
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     public void tick(){
-        for (int i = 0; i < objects.size(); i++) {
+        int size = objects.size();
+        for (int i = 0; i < size; i++) {
             var tempObject = objects.get(i);
             tempObject.tick();
         }
@@ -26,13 +28,9 @@ public class Handler {
     }
 
     public void clearEnnemies(){
-        for (int i = 0; i < objects.size(); i++) {
-            var object = objects.get(i);
-            if (object.getId() == ID.Player){
-                objects.clear();
-                addObject(new Player(WaveGame.WIDTH/2, WaveGame.HEIGHT/2, ID.Player, this));
-            }
-        }
+        objects.clear();
+        if (WaveGame.gameState != WaveGame.STATE.End)
+            addObject(new Player(WaveGame.WIDTH/2, WaveGame.HEIGHT/2, ID.Player, this));
     }
 }
 

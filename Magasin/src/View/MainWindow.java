@@ -1,11 +1,7 @@
 package View;
 
-import Model.Dvd;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Vue Principale parent des autres vues

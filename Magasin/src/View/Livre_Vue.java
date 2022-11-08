@@ -6,12 +6,8 @@ import Model.Dvd;
 import Model.Livre;
 import Model.Realisateur;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.util.ResourceBundle;
 
 public class Livre_Vue extends JPanel {
 
