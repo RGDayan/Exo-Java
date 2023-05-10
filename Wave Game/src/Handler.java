@@ -4,18 +4,20 @@ import java.util.LinkedList;
 public class Handler {
     LinkedList<GameObject> objects = new LinkedList<>();
 
-    @SuppressWarnings("ForLoopReplaceableByForEach")
     public void tick(){
         int size = objects.size();
         for (int i = 0; i < size; i++) {
-            var tempObject = objects.get(i);
-            tempObject.tick();
+            try{
+                var tempObject = objects.get(i);
+                tempObject.tick();
+            }catch (Exception ignored){}
         }
     }
 
     public void render(Graphics g){
         for (GameObject tempObject : objects) {
-            tempObject.render(g);
+            if (tempObject != null)
+                tempObject.render(g);
         }
     }
 

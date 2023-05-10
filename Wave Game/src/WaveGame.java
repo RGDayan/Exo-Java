@@ -23,6 +23,10 @@ public class WaveGame extends Canvas implements Runnable {
 
     public static STATE gameState = STATE.Menu;
 
+    public static void main(String[] args) {
+        new WaveGame();
+    }
+
     public WaveGame() {
         hud = new HUD();
 
@@ -44,10 +48,8 @@ public class WaveGame extends Canvas implements Runnable {
         this.requestFocus();
 
         spawnParticles();
-    }
-
-    public static void main(String[] args) {
-        new WaveGame();
+        AudioPlayer.chargementAudioClip();
+        AudioPlayer.getMusic().play();
     }
 
     public synchronized void start(){

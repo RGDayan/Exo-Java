@@ -50,6 +50,8 @@ public class Menu extends CustomMouseAdapter {
         if (WaveGame.gameState != WaveGame.STATE.Menu)
             return;
 
+        AudioPlayer.getSound("Click").play();
+
         int mx = e.getX();
         int my = e.getY();
 

@@ -41,6 +41,8 @@ public class End extends CustomMouseAdapter{
         if (WaveGame.gameState != WaveGame.STATE.End)
             return;
 
+        AudioPlayer.getSound("Click").play();
+
         int mx = e.getX();
         int my = e.getY();
 

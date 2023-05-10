@@ -41,6 +41,8 @@ public class Help extends CustomMouseAdapter {
         if (WaveGame.gameState != WaveGame.STATE.Help)
             return;
 
+        AudioPlayer.getSound("Click").play();
+
         int mx = e.getX();
         int my = e.getY();
 

@@ -11,6 +11,8 @@ public class EnemyBossBullet extends GameObject{
         this.handler = handler;
         velX = (r.nextInt(5- -5)+-5);
         velY = 5;
+
+        AudioPlayer.getSound("LaserShot").play();
     }
 
     @Override
